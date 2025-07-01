@@ -1,0 +1,30 @@
+def es_primo(numero):
+    if numero < 2:
+        return False
+    for i in range(2, int(numero ** 0.5) + 1):
+        if numero % i == 0:
+            return False
+    return True
+
+def filtrar_primos(lista):
+    primos = []
+    for num in lista:
+        if es_primo(num):
+            primos.append(num)
+    return primos
+try:
+    entrada = input("Ingresa una lista de números separados por espacios: ")
+    if not entrada.strip():
+        raise ValueError("No se ingresaron datos.")
+    elementos = entrada.split()
+    numeros = []
+    for x in elementos:
+        if not x.lstrip("-").isdigit():
+            raise ValueError(f'"{x}" no es un número válido.')
+        numeros.append(int(x))
+    primos = filtrar_primos(numeros)
+    print("Los números primos son:", primos)
+except ValueError as ve:
+    print(f"Error de entrada: {ve}")
+except Exception as e:
+    print(f"Ocurrió un error inesperado: {e}")
