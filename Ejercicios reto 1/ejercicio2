@@ -1,1 +1,29 @@
-
+def ingresar_operacion():
+    operacion = input('Ingresa una operación (+, -, *, /): ')
+    if operacion not in ['+', '-', '*', '/']:
+        raise ValueError("Operación inválida. Debes ingresar una de: +, -, *, /")
+    return operacion
+try:
+    operacion = ingresar_operacion()
+    numero1 = input('Ingresa el primer número: ')
+    numero2 = input('Ingresa el segundo número: ')
+    if not numero1.isdigit() or not numero2.isdigit():
+        raise ValueError("Ambos valores deben ser números enteros positivos.")
+    numero1 = int(numero1)
+    numero2 = int(numero2)
+    if operacion == '+':
+        print(f'El resultado de la suma es: {numero1 + numero2}')
+    elif operacion == '-':
+        print(f'El resultado de la resta es: {numero1 - numero2}')
+    elif operacion == '*':
+        print(f'El resultado de la multiplicación es: {numero1 * numero2}')
+    elif operacion == '/':
+        if numero2 == 0:
+            raise ZeroDivisionError("No se puede dividir entre cero.")
+        print(f'El resultado de la división es: {numero1 / numero2:.2f}')
+except ValueError as ve:
+    print(f"Error de valor: {ve}")
+except ZeroDivisionError as zde:
+    print(f"Error de división: {zde}")
+except Exception as e:
+    print(f"Ocurrió un error inesperado: {e}")
