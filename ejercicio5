@@ -1,0 +1,29 @@
+def mayor_suma_consecutiva(lista):
+    if len(lista) < 2:
+        raise ValueError("La lista debe tener al menos dos números.")
+
+    mayor_suma = lista[0] + lista[1]
+
+    for i in range(1, len(lista) - 1):
+        suma = lista[i] + lista[i + 1]
+        if suma > mayor_suma:
+            mayor_suma = suma
+    return mayor_suma
+
+try:
+    entrada = input('Ingresa una lista de números enteros separados por espacios: ')
+    if not entrada.strip():
+        raise ValueError("No se ingresó ninguna lista.")
+    elementos = entrada.split()
+    numeros = []
+    for x in elementos:
+        if not x.lstrip("-").isdigit():
+            raise ValueError(f'"{x}" no es un número entero válido.')
+        numeros.append(int(x))
+    resultado = mayor_suma_consecutiva(numeros)
+    print('La mayor suma entre dos elementos consecutivos es:', resultado)
+
+except ValueError as ve:
+    print(f"Error: {ve}")
+except Exception as e:
+    print(f"Ocurrió un error inesperado: {e}")

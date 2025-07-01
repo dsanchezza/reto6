@@ -1,0 +1,28 @@
+def ingresar_palabra():
+    palabra = input('Ingresa una palabra: ')
+    if not palabra:
+        raise ValueError("No se ingresó ninguna palabra.")
+    if not palabra.isalpha():
+        raise ValueError("La palabra solo debe contener letras (sin números ni símbolos).")
+    return palabra.lower()
+
+def es_palindromo(palabra):
+    inicio = 0
+    fin = len(palabra) - 1
+
+    while inicio < fin:
+        if palabra[inicio] != palabra[fin]:
+            return False
+        inicio += 1
+        fin -= 1
+    return True
+try:
+    palabra = ingresar_palabra()
+    if es_palindromo(palabra):
+        print(f'La palabra "{palabra}" es un palíndromo.')
+    else:
+        print(f'La palabra "{palabra}" no es un palíndromo.')
+except ValueError as ve:
+    print(f"Error: {ve}")
+except Exception as e:
+    print(f"Ocurrió un error inesperado: {e}")

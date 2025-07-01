@@ -1,0 +1,39 @@
+def contar_caracteres(palabra):
+    if not isinstance(palabra, str):
+        raise TypeError("La palabra debe ser una cadena de texto.")
+    conteo = [0] * 27
+    for caracter in palabra.lower():
+        if 'a' <= caracter <= 'z':
+            indice = ord(caracter) - ord('a')
+            conteo[indice] += 1
+        else:
+            raise ValueError(f"Caracter no válido: '{caracter}'. Solo se permiten letras minúsculas sin tildes.")
+    return conteo
+
+def filtrar_por_caracteres(lista):
+    if not isinstance(lista, list):
+        raise TypeError("La entrada debe ser una lista de palabras.")
+    if not all(isinstance(p, str) for p in lista):
+        raise ValueError("Todos los elementos de la lista deben ser cadenas de texto.")
+    palabras_con_mismos_caracteres = []
+    for i in range(len(lista)):
+        for j in range(i + 1, len(lista)):
+            try:
+                if contar_caracteres(lista[i]) == contar_caracteres(lista[j]):
+                    if lista[i] not in palabras_con_mismos_caracteres:
+                        palabras_con_mismos_caracteres.append(lista[i])
+                    if lista[j] not in palabras_con_mismos_caracteres:
+                        palabras_con_mismos_caracteres.append(lista[j])
+            except ValueError as e:
+                print(f"Se omitió una palabra por error: {e}")
+    return palabras_con_mismos_caracteres
+
+try:
+    entrada = input('Ingresa una lista de palabras separadas por espacios: ')
+    lista_palabras = entrada.split()
+    if not lista_palabras:
+        raise ValueError("La lista está vacía, ingresa al menos una palabra.")
+    palabras_con_mismos_caracteres = filtrar_por_caracteres(lista_palabras)
+    print("Las palabras con los mismos caracteres son:", palabras_con_mismos_caracteres)
+except Exception as e:
+    print(f"Ocurrió un error: {e}")
